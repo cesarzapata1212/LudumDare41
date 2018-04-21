@@ -1,16 +1,20 @@
 import * as PIXI from 'pixi.js';
+import GunController from './components/GunController';
 
-export default  class Demo  {
+
+
+export default class Demo {
+
     constructor() {
 
-	}
+    }
 
+    init() {
 
-	init () {
-        var app = new PIXI.Application(window.innerWidth, window.innerHeight, {backgroundColor : 0x1099bb});
+        var app = new PIXI.Application(window.innerWidth, window.innerHeight, { backgroundColor: 0x1099bb });
         document.body.appendChild(app.view);
 
-// create a new Sprite from an image path
+        // create a new Sprite from an image path
         var bunny = PIXI.Sprite.fromImage('assets/bunny.png');
 
         // center the sprite's anchor point
@@ -23,12 +27,16 @@ export default  class Demo  {
         app.stage.addChild(bunny);
 
         // Listen for animate update
-        app.ticker.add(function(delta) {
+        app.ticker.add(function (delta) {
             // just for fun, let's rotate mr rabbit a little
             // delta is 1 if running at 100% performance
             // creates frame-independent transformation
             bunny.rotation += 0.1 * delta;
         });
-	}
 
+
+        // controller
+        var controller = new GunController(app);
+        app.stage.addChild(controller);
+    }
 }
